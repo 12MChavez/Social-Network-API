@@ -1,0 +1,1 @@
+Add format getter to models/Thought.js
