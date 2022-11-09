@@ -1,42 +1,43 @@
-const router = require("express").Router();
-const {
-  getUsers,
-  getOneUser,
-  createUser,
-  updateUser,
-  deleteUser,
-  getFriends,
-  addOneFriend,
-  deleteOneFriend,
-} = require("../../controllers/userController");
+import express from "express";
+export const userRouter = express.Router();
+import userFunctions from "../../controllers/userController.js";
 
 //get users
-router.route("/api/users").get(getUsers);
+userRouter.route("/api/users").get(userFunctions.getUsers);
 
 //get one user
-router.route("/:userId").get(getOneUser);
+userRouter.route("/:userId").get(userFunctions.getOneUser);
 
 //create user
-router.route("/api/users").get(getUsers).post(createUser);
+userRouter
+  .route("/api/users")
+  .get(userFunctions.getUsers)
+  .post(userFunctions.createUser);
 
 //update user
-router.route("/:userId").get(getOneUser).put(updateUser);
+userRouter
+  .route("/:userId")
+  .get(userFunctions.getOneUser)
+  .put(userFunctions.updateUser);
 
 //delete user
-router.route("/:userId").get(getOneUser).delete(deleteUser);
+userRouter
+  .route("/:userId")
+  .get(userFunctions.getOneUser)
+  .delete(userFunctions.deleteUser);
 
 //add friend to user's list
-router
+userRouter
   .route("/api/users/:userId/friends/:friendId")
-  .get(getOneUser)
-  .get(getFriends)
-  .post(addOneFriend);
+  .get(userFunctions.getOneUser)
+  .get(userFunctions.getFriends)
+  .post(userFunctions.addOneFriend);
 
 //delete friend from user's list
-router
+userRouter
   .route("/api/users/:userId/friends/:friendId")
-  .get(getOneUser)
-  .get(getFriends)
-  .delete(deleteOneFriend);
+  .get(userFunctions.getOneUser)
+  .get(userFunctions.getFriends)
+  .delete(userFunctions.deleteOneFriend);
 
-module.exports = router;
+export default userRouter;

@@ -1,12 +1,12 @@
-const { Schema, Types, SchemaType } = require("mongoose");
-import isEmail from "validator/lib/isEmail";
+import { Schema, Types, SchemaType } from "mongoose";
+import isEmail from "validator/lib/isEmail.js";
 
 const userSchema = new Schema({
   username: {
     type: String,
     unique: true,
     required: true,
-    $trim: { input: username, chars: " " },
+    $trim: { input: "username", chars: " " },
   },
   email: {
     type: String,
@@ -32,4 +32,4 @@ userSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
 
-module.exports = userSchema;
+export default userSchema;

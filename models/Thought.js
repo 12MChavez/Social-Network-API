@@ -1,5 +1,5 @@
-const { Schema, Types, SchemaType } = require("mongoose");
-
+import { Schema, Types, SchemaType } from "mongoose";
+import reactionSchema from "./Reaction.js";
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -34,4 +34,4 @@ thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
 
-module.exports = thoughtSchema;
+export default thoughtSchema;
