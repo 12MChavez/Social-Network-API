@@ -1,11 +1,14 @@
 // const { User, Thought } = require("../models");
-import userSchema from "../models/User.js";
+import User from "../models/User.js";
 const userFunctions = {
   // getUsers gets all users
   getUsers(req, res) {
     User.find()
       .select("-__v")
       .then((data) => {
+        if (data.length === 0) {
+          return res.status(404).json({ message: "currently no users" });
+        }
         res.json(data);
       })
       .catch((err) => {
@@ -18,7 +21,12 @@ const userFunctions = {
   getOneUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select("-__v")
+      .populate("friends")
+      .populate("thoughts")
       .then((data) => {
+        if (data.length === 0) {
+          return res.status(404).json({ message: "user id not found" });
+        }
         res.json(data);
       })
       .catch((err) => {
@@ -31,6 +39,11 @@ const userFunctions = {
   createUser(req, res) {
     User.create(req.body)
       .then((newUserData) => {
+        if (newUserData.length === 0) {
+          return res.status(404).json({
+            message: "user data not complete: username and email are required",
+          });
+        }
         res.json(newUserData);
       })
       .catch((err) => {
@@ -52,7 +65,7 @@ const userFunctions = {
       }
     )
       .then((data) => {
-        if (!data) {
+        if (data.length === 0) {
           return res.status(404).json({ message: "user id not found" });
         }
         res.json(data);
@@ -65,14 +78,14 @@ const userFunctions = {
 
   // deleteUser deletes a user
   deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.userId })
+    User.findOneAndDelete({ _id: req.params.userId }, { new: true })
       .then((userData) => {
-        if (!userData) {
+        if (userData.length === 0) {
           return res.status(404).json({ message: "user id not found" });
         }
 
         //start work here
-        res.json(data);
+        res.json(userData);
       })
       .catch((err) => {
         console.log(err);
@@ -82,15 +95,56 @@ const userFunctions = {
 
   // getFriends gets all of one user's friends
   getFriends(req, res) {
-    console.log("getFriends called");
+    User.findOne({ _id: req.params.userId })
+      .select("-__v")
+      .populate("friends")
+      .then((data) => {
+        if (!userData) {
+          return res.status(404).json({ message: "user id not found" });
+        }
+        res.json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
   // addOneFriend adds one friend to user
   addOneFriend(req, res) {
-    console.log("addOneFriend called");
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { friends: req.params.friendId } },
+      { new: true }
+    )
+      .then((data) => {
+        if (data.length === 0) {
+          return res.status(404).json({ message: "user id not found" });
+        }
+        res.json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
   // deleteOneFriend deletes one friend from user
   deleteOneFriend(req, res) {
-    console.log("deleteOneFriend called");
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      //pass the optional new option set to true to return the modified array, rather than the original
+      { $pull: { friends: req.params.friendId } },
+      { new: true }
+    )
+      .then((data) => {
+        if (data === null) {
+          return res.status(404).json({ message: "user id not found" });
+        }
+        res.json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
 };
 

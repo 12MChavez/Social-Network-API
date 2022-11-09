@@ -3,14 +3,14 @@ export const userRouter = express.Router();
 import userFunctions from "../../controllers/userController.js";
 
 //get users
-userRouter.route("/api/users").get(userFunctions.getUsers);
+userRouter.route("/").get(userFunctions.getUsers);
 
 //get one user
 userRouter.route("/:userId").get(userFunctions.getOneUser);
 
 //create user
 userRouter
-  .route("/api/users")
+  .route("/")
   .get(userFunctions.getUsers)
   .post(userFunctions.createUser);
 
@@ -27,15 +27,22 @@ userRouter
   .delete(userFunctions.deleteUser);
 
 //add friend to user's list
+/* use the following format for the req.body
+{
+	"username":"test1",
+	"email" : "test1@email.com"
+}
+*/
+
 userRouter
-  .route("/api/users/:userId/friends/:friendId")
+  .route("/:userId/friends/:friendId")
   .get(userFunctions.getOneUser)
   .get(userFunctions.getFriends)
   .post(userFunctions.addOneFriend);
 
 //delete friend from user's list
 userRouter
-  .route("/api/users/:userId/friends/:friendId")
+  .route("/:userId/friends/:friendId")
   .get(userFunctions.getOneUser)
   .get(userFunctions.getFriends)
   .delete(userFunctions.deleteOneFriend);

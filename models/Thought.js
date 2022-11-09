@@ -1,4 +1,4 @@
-import { Schema, Types, SchemaType } from "mongoose";
+import { Schema, Types, SchemaType, model } from "mongoose";
 import reactionSchema from "./Reaction.js";
 const thoughtSchema = new Schema(
   {
