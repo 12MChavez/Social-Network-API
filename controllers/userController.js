@@ -1,13 +1,16 @@
-// const { User, Thought } = require("../models");
 import User from "../models/User.js";
 const userFunctions = {
   // getUsers gets all users
   getUsers(req, res) {
     User.find()
       .select("-__v")
+      .populate("friends")
+      .populate("thoughts")
       .then((data) => {
         if (data.length === 0) {
-          return res.status(404).json({ message: "currently no users" });
+          return res
+            .status(404)
+            .json({ message: "currently no users have been added" });
         }
         res.json(data);
       })

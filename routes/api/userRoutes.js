@@ -11,22 +11,23 @@ userRouter.route("/:userId").get(userFunctions.getOneUser);
 //create user
 userRouter
   .route("/")
-  .get(userFunctions.getUsers)
+  // .get(userFunctions.getUsers)
   .post(userFunctions.createUser);
 
 //update user
 userRouter
   .route("/:userId")
-  .get(userFunctions.getOneUser)
+  // .get(userFunctions.getOneUser
   .put(userFunctions.updateUser);
 
 //delete user
 userRouter
   .route("/:userId")
-  .get(userFunctions.getOneUser)
+  // .get(userFunctions.getOneUser)
   .delete(userFunctions.deleteUser);
 
 //add friend to user's list
+
 /* use the following format for the req.body
 {
 	"username":"test1",
@@ -36,15 +37,15 @@ userRouter
 
 userRouter
   .route("/:userId/friends/:friendId")
-  .get(userFunctions.getOneUser)
-  .get(userFunctions.getFriends)
+  // .get(userFunctions.getOneUser)
+  // .get(userFunctions.getFriends)
   .post(userFunctions.addOneFriend);
 
 //delete friend from user's list
 userRouter
   .route("/:userId/friends/:friendId")
-  .get(userFunctions.getOneUser)
-  .get(userFunctions.getFriends)
+  // .get(userFunctions.getOneUser)
+  // .get(userFunctions.getFriends)
   .delete(userFunctions.deleteOneFriend);
 
 export default userRouter;

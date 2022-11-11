@@ -11,19 +11,19 @@ thoughtRouter.route("/:thoughtId").get(thoughtFunctions.getOneThought);
 //create thought
 thoughtRouter
   .route("/")
-  .get(thoughtFunctions.getThoughts)
+  // .get(thoughtFunctions.getThoughts)
   .post(thoughtFunctions.createThought);
 
 //update thought
 thoughtRouter
   .route("/:thoughtId")
-  .get(thoughtFunctions.getOneThought)
+  // .get(thoughtFunctions.getOneThought)
   .put(thoughtFunctions.updateThought);
 
 //delete thought
 thoughtRouter
   .route("/:thoughtId")
-  .get(thoughtFunctions.getOneThought)
+  // .get(thoughtFunctions.getOneThought)
   .delete(thoughtFunctions.deleteThought);
 
 //add reaction to thought
