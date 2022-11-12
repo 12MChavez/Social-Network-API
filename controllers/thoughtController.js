@@ -109,7 +109,7 @@ const thoughtsFunctions = {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       //pass the optional new option set to true to return the modified array, rather than the original
-      { $pull: { reactions: req.params.thoughtId } },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { new: true }
     )
       .then((data) => {

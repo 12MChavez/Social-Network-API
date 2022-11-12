@@ -30,6 +30,8 @@ thoughtRouter
 thoughtRouter.route("/:thoughtId").post(thoughtFunctions.addReaction);
 
 //delete reaction from thought
-thoughtRouter.route("/:thoughtId").delete(thoughtFunctions.deleteReaction);
+thoughtRouter
+  .route("/:thoughtId/reaction/:reactionId")
+  .delete(thoughtFunctions.deleteReaction);
 
 export default thoughtRouter;
