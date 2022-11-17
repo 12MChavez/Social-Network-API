@@ -1,1 +1,2 @@
-Add format getter to models/Thought.js
+-Add format getter to models/Thought.js
+-Finish Reaction functions

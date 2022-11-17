@@ -22,7 +22,9 @@ Project is created with:
 
 ## App
 
-- TBA (Recation functions are not yet complete)
+![Screenshot](./images/screenshot.JPG)
+
+- [Walkthrough Video](https://watch.screencastify.com/v/LxeC7hiyYh8mHxoh6kKX)
 
 ## Contact me
 
